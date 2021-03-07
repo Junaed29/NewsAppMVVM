@@ -1,18 +1,19 @@
 package com.example.newsappmvvm.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.newsappmvvm.R
+import androidx.fragment.app.Fragment
+import com.example.newsappmvvm.databinding.FragmentSavedNewsBinding
 
 class SavedNewsFragment : Fragment() {
+    lateinit var binding: FragmentSavedNewsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved_news, container, false)
+    ): View {
+        binding = FragmentSavedNewsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 }
