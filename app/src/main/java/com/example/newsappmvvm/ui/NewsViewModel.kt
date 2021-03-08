@@ -3,6 +3,7 @@ package com.example.newsappmvvm.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsappmvvm.model.Article
 import com.example.newsappmvvm.model.NewsResponse
 import com.example.newsappmvvm.repository.NewsRepository
 import com.example.newsappmvvm.util.Resource
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class NewsViewModel(
-    val repository: NewsRepository
+    private val repository: NewsRepository
 ) : ViewModel() {
     val breakingNewsLiveData: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
@@ -52,4 +53,14 @@ class NewsViewModel(
         }
         return Resource.Error(response.message())
     }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        repository.upsert(article)
+    }
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        repository.deleteArticle(article)
+    }
+
+    fun getSaveNews() = repository.getSaveNews()
 }
