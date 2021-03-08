@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsappmvvm.adapter.NewsAdapter
 import com.example.newsappmvvm.databinding.FragmentBreakingNewsBinding
@@ -33,6 +34,11 @@ class BreakingNewsFragment : Fragment() {
 
         viewModel = (activity as NewsActivity).viewModel
         setupRecyclerView()
+
+        newsAdapter.setOnItemclickListener {
+            val action = BreakingNewsFragmentDirections.actionBreakingNewsFragment2ToArticleFragment(it)
+            view.findNavController().navigate(action)
+        }
 
         viewModel.breakingNewsLiveData.observe(viewLifecycleOwner, {
             when (it) {
